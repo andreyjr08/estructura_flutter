@@ -1,3 +1,4 @@
+import 'package:estructura_flutter/data/service/services.dart';
 import 'package:estructura_flutter/device/Location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,13 @@ class CurrentLocation extends StatefulWidget {
 class _CurrentLocationState extends State<CurrentLocation> {
   late String currentLocation = "";
   late Location location;
+  late AuthService authService;
 
   @override
   void initState() {
     super.initState();
     this.location = Location();
+    this.authService = AuthService();
   }
 
   @override
@@ -22,6 +25,13 @@ class _CurrentLocationState extends State<CurrentLocation> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Location"),
+        leading: IconButton(
+          icon: Icon(Icons.login_outlined),
+          onPressed: () {
+            authService.logout();
+            Navigator.pushReplacementNamed(context, 'login');
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -62,7 +72,7 @@ class _CurrentLocationState extends State<CurrentLocation> {
                   )),
               RaisedButton(
                 color: Colors.blue[50],
-                onPressed: () async{
+                onPressed: () async {
                   List id = await this.location.getCurrentLocation();
                   print(id);
                 },
