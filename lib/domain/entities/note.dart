@@ -1,18 +1,18 @@
-class User {
+class Note {
   final int? id;
   final String name;
   final int age;
   final String country;
   final String? email;
 
-  User(
+  Note(
       {this.id,
       required this.name,
       required this.age,
       required this.country,
       this.email});
 
-  User.fromMap(Map<String, dynamic> res)
+  Note.fromMap(Map<String, dynamic> res)
       : id = res["id"],
         name = res["name"],
         age = res["age"],

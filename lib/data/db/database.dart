@@ -16,7 +16,7 @@ class DatabaseHandler {
     );
   }
 
-  Future<int> insertUser(List<User> users) async {
+  Future<int> insertUser(List<Note> users) async {
     int result = 0;
     final Database db = await initializeDB();
     for(var user in users){
@@ -25,10 +25,10 @@ class DatabaseHandler {
     return result;
   }
 
-  Future<List<User>> retrieveUsers() async {
+  Future<List<Note>> retrieveUsers() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query('users');
-    return queryResult.map((e) => User.fromMap(e)).toList();
+    return queryResult.map((e) => Note.fromMap(e)).toList();
   }
 
   Future<void> deleteUser(int id) async {

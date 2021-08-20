@@ -17,9 +17,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<int> addUsers() async {
-    User firstUser = User(name: "peter", age: 24, country: "Lebanon");
-    User secondUser = User(name: "john", age: 31, country: "United Kingdom");
-    List<User> listOfUsers = [firstUser, secondUser];
+    Note firstUser = Note(name: "peter", age: 24, country: "Lebanon");
+    Note secondUser = Note(name: "john", age: 31, country: "United Kingdom");
+    List<Note> listOfUsers = [firstUser, secondUser];
     setState(() {});
     return await this.handler.insertUser(listOfUsers);
   }
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: FutureBuilder(
         future: this.handler.retrieveUsers(),
-        builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data?.length,
