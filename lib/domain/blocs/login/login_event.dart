@@ -5,6 +5,15 @@ abstract class LoginEvent {
   List<Object> get props => [];
 }
 
+class ValidateEmailOnChange extends LoginEvent {
+  final String email;
+
+  ValidateEmailOnChange({required this.email});
+
+  @override
+  List<Object> get props => [email];
+}
+
 class LoginWithCredentialsPressed extends LoginEvent {
   final String email;
   final String password;

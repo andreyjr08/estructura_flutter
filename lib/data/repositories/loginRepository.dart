@@ -2,13 +2,15 @@ import 'package:estructura_flutter/domain/repositories/abstractLoginRepository.d
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRepository extends AbstractLoginRepository {
+
   FirebaseAuth auth = FirebaseAuth.instance;
-  LoginRepository(this.auth);
+  //LoginRepository(this.auth);
 
   @override
-  Future<String> doLogin(String username, String password) async {
+  Future<String> doLogin(String email, String password) async {
+
     final user = await auth.signInWithEmailAndPassword(
-      email: username,
+      email: email,
       password: password,
     );
 
