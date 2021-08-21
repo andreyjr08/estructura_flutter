@@ -1,6 +1,6 @@
 abstract class AbstractLoginRepository {
 
-  Future<String> doLogin({required String username, required String password});
+  Future<String> doLogin(String username, String password);
   
   Future<void> doLogout();
   
