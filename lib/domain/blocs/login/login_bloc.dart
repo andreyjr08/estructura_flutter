@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _validateEmail(String email) async* {
-    yield state.update(isEmailValid: Validators.isValidEmail(email));
+    yield state.update(isEmailValid: Validators.isValidEmail(email), isPasswordValid: true);
   }
 
   Stream<LoginState> _singIn(
