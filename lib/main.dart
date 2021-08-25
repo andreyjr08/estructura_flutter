@@ -9,9 +9,9 @@ import 'domain/blocs/login/login_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(AppState());
 }
 
@@ -31,6 +31,7 @@ class AppState extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  LoginRepository loginRepository = LoginRepository();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Productos App',
       initialRoute: 'login',
       routes: {
-        'login': (_) => LoginScreen(),
+        'login': (_) => LoginScreen(loginRepository: loginRepository),
         'location': (_) => CurrentLocation(),
       },
       scaffoldMessengerKey: NotificationsService.messengerKey,

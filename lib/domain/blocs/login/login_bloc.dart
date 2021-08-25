@@ -26,15 +26,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _validateEmail(String email) async* {
-    yield state.update(isEmailValid: Validators.isValidEmail(email), isPasswordValid: true);
+    yield state.update(
+        isEmailValid: Validators.isValidEmail(email), isPasswordValid: true);
   }
 
   Stream<LoginState> _singIn(
       {required String email, required String password}) async* {
     yield LoginState.loading();
     try {
-      await _loginRepository.doLogin(email, password);
-      yield LoginState.success();
+      final token = await _loginRepository.doLogin(email, password);
+      // ignore: unnecessary_null_comparison
+      if (token == null) {
+        yield LoginState.failure();
+      } else {
+        yield LoginState.success();
+      }
     } catch (_) {
       yield LoginState.failure();
     }
