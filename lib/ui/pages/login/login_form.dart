@@ -1,19 +1,10 @@
-import 'package:estructura_flutter/domain/blocs/login/login_bloc.dart';
-import 'package:flutter/cupertino.dart';
-
-import 'package:estructura_flutter/data/service/auth_service.dart';
-import 'package:estructura_flutter/data/service/notifications_service.dart';
-import 'package:estructura_flutter/data/repositories/loginRepository.dart';
-import 'package:estructura_flutter/ui/widgets/input_decorations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginForm extends StatefulWidget {
-  final LoginRepository _loginRepository;
+import 'package:estructura_flutter/domain/blocs/login/login_bloc.dart';
 
-  const LoginForm({Key? key, required LoginRepository loginRepository})
-      : _loginRepository = loginRepository,
-        super(key: key);
+class LoginForm extends StatefulWidget {
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -107,11 +98,6 @@ class _LoginFormState extends State<LoginForm> {
                             _onFormSubmitted();
                           }
                         },
-                  /* onPressed: () {
-                    if (isButtonEnabled(state)) {
-                      _onFormSubmitted();
-                    }
-                  },*/
                 )
               ],
             ),

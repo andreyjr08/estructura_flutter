@@ -1,5 +1,6 @@
 import 'package:estructura_flutter/ui/pages/location.dart';
 import 'package:estructura_flutter/ui/pages/login/login_page.dart';
+import 'package:estructura_flutter/device/camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,10 +38,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Productos App',
-      initialRoute: 'login',
+      initialRoute: 'camera',
       routes: {
         'login': (_) => LoginScreen(loginRepository: loginRepository),
         'location': (_) => CurrentLocation(),
+        'camera': (_) => PhotoPreviewScreen(),
       },
       scaffoldMessengerKey: NotificationsService.messengerKey,
       theme: ThemeData.light().copyWith(
