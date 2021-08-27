@@ -1,9 +1,13 @@
-import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
+import 'package:estructura_flutter/data/db/database.dart';
+import 'package:estructura_flutter/domain/entities/Image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class PhotoPreviewScreen extends StatefulWidget {
   @override
@@ -11,14 +15,9 @@ class PhotoPreviewScreen extends StatefulWidget {
 }
 
 class _PagePhoto extends State<PhotoPreviewScreen> {
-  List<XFile>? _imageFileList;
+  late DatabaseHandler databaseImage;
 
-  set _imageFile(XFile? value) {
-    _imageFileList = value == null ? null : [value];
-  }
-
-  dynamic _pickImageError;
-  String? _retrieveDataError;
+  XFile? _imageFile;
 
   final ImagePicker _picker = ImagePicker();
 
@@ -28,11 +27,10 @@ class _PagePhoto extends State<PhotoPreviewScreen> {
       final pickedFile = await _picker.pickImage(source: source);
       setState(() {
         _imageFile = pickedFile;
+        insertImage();
       });
     } catch (e) {
-      setState(() {
-        _pickImageError = e;
-      });
+      setState(() {});
     }
   }
 
@@ -46,92 +44,33 @@ class _PagePhoto extends State<PhotoPreviewScreen> {
     super.dispose();
   }
 
-  Widget _previewImages() {
-    final Text? retrieveError = _getRetrieveErrorWidget();
-    if (retrieveError != null) {
-      return retrieveError;
-    }
-    if (_imageFileList != null) {
-      return Semantics(
-          child: ListView.builder(
-            key: UniqueKey(),
-            itemBuilder: (context, index) {
-              return new Container(
-                  width: 190.0,
-                  height: 190.0,
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new FileImage(
-                              File(_imageFileList![index].path)))));
-            },
-            itemCount: _imageFileList!.length,
-          ),
-          label: 'image_picker_example_picked_images');
-    } else if (_pickImageError != null) {
-      return Text(
-        'Pick image error: $_pickImageError',
-        textAlign: TextAlign.center,
-      );
-    } else {
-      return const Text(
-        'You have not yet picked an image.',
-        textAlign: TextAlign.center,
-      );
-    }
-  }
-
-  Widget _handlePreview() {
-    return _previewImages();
-  }
-
-  Future<void> retrieveLostData() async {
-    final LostDataResponse response = await _picker.retrieveLostData();
-    if (response.isEmpty) {
-      return;
-    }
-
-    _retrieveDataError = response.exception!.code;
-  }
-
   @override
   Widget build(BuildContext context) {
+    databaseImage = DatabaseHandler();
     return Scaffold(
       appBar: AppBar(
         title: Text("Prueba Camara"),
       ),
       body: Center(
-        child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
-            ? FutureBuilder<void>(
-                future: retrieveLostData(),
-                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                      return const Text(
-                        'You have not yet picked an image.',
-                        textAlign: TextAlign.center,
-                      );
-                    case ConnectionState.done:
-                      return _handlePreview();
-                    default:
-                      if (snapshot.hasError) {
-                        return Text(
-                          'Pick imageerror: ${snapshot.error}}',
-                          textAlign: TextAlign.center,
-                        );
-                      } else {
-                        return const Text(
-                          'You have not yet picked an image.',
-                          textAlign: TextAlign.center,
-                        );
-                      }
-                  }
-                },
-              )
-            : _handlePreview(),
-      ),
+          child: FutureBuilder(
+              future: this.databaseImage.getPictures(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Picture>> snapshot) {
+                if (snapshot.hasData && snapshot.data!.length != 0) {
+                  final picture = snapshot.data;
+                  final UriData? data = Uri.parse(picture![0].picture).data;
+                  Uint8List myImage = data!.contentAsBytes();
+                  return Container(
+                      width: 190.0,
+                      height: 190.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: MemoryImage(myImage), fit: BoxFit.fill)));
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              })),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -162,12 +101,17 @@ class _PagePhoto extends State<PhotoPreviewScreen> {
     );
   }
 
-  Text? _getRetrieveErrorWidget() {
-    if (_retrieveDataError != null) {
-      final Text result = Text(_retrieveDataError!);
-      _retrieveDataError = null;
-      return result;
-    }
-    return null;
+  insertImage() {
+    final bytes = File(_imageFile!.path).readAsBytesSync();
+
+    String fileName = basename(_imageFile!.path);
+    String extension = fileName.split('.').last;
+
+    String base64Image =
+        "data:image/" + extension + ";base64," + base64Encode(bytes);
+
+    Picture picture = Picture(title: 'Imagen Perfil', picture: base64Image);
+
+    this.databaseImage.updateImage(1, picture);
   }
 }
