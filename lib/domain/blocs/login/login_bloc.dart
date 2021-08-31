@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:estructura_flutter/data/repositories/loginRepository.dart';
+import 'package:estructura_flutter/domain/repositories/abstractLoginRepository.dart';
 import 'package:estructura_flutter/ui/util/validator.dart';
 import 'package:meta/meta.dart';
 
@@ -9,11 +9,10 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  //LoginBloc() : super(LoginInitial());
-  LoginRepository _loginRepository;
+  AbstractLoginRepository _abstractLoginRepository;
 
-  LoginBloc({required LoginRepository loginRepository})
-      : _loginRepository = loginRepository,
+  LoginBloc({required AbstractLoginRepository abstractLoginRepository})
+      : _abstractLoginRepository = abstractLoginRepository,
         super(LoginState.initial());
 
   @override
@@ -34,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       {required String email, required String password}) async* {
     yield LoginState.loading();
     try {
-      final token = await _loginRepository.doLogin(email, password);
+      final token = await _abstractLoginRepository.doLogin(email, password);
       // ignore: unnecessary_null_comparison
       if (token == null) {
         yield LoginState.failure();

@@ -8,22 +8,27 @@ import 'package:estructura_flutter/domain/login_form_provider.dart';
 import 'package:estructura_flutter/data/service/auth_service.dart';
 import 'package:estructura_flutter/data/service/notifications_service.dart';
 import 'package:estructura_flutter/data/repositories/loginRepository.dart';
+import 'package:injector/injector.dart';
 
 import 'login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   final LoginRepository _loginRepository;
+  
 
   const LoginScreen(
       {Key? key, required LoginRepository loginRepository})
       : _loginRepository = loginRepository,
         super(key: key);
 
+        
+
   @override
   Widget build(BuildContext context) {
+    final injector = Injector.appInstance;
     return Scaffold(
         body: BlocProvider<LoginBloc>(
-            create: (context) => LoginBloc(loginRepository: _loginRepository),
+            create: (context) => injector.get<LoginBloc>(),
             child: SingleChildScrollView(
               child: Column(
                 children: [

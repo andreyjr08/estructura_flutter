@@ -2,6 +2,7 @@ import 'package:estructura_flutter/ui/pages/location.dart';
 import 'package:estructura_flutter/ui/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injector/injector.dart';
 
 import 'data/repositories/loginRepository.dart';
 import 'data/service/notifications_service.dart';
@@ -18,12 +19,11 @@ void main() async {
 class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    LoginRepository loginRepository = LoginRepository();
+    final injector = Injector.appInstance;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) =>
-                LoginBloc(loginRepository: loginRepository))
+            create: (BuildContext context) => injector.get<LoginBloc>())
       ],
       child: MyApp(),
     );
