@@ -30,10 +30,6 @@ class LoginRepository extends AbstractLoginRepository {
     final resp = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodedResp = json.decode(resp.body);
 
-    print(decodedResp);
-    print(email);
-    print(password);
-
     return decodedResp['idToken'];
   }
 

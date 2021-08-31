@@ -38,7 +38,14 @@ dependencies:
   bloc: ^7.1.0
   firebase_core: "^ 1.5.0"
   firebase_auth: "^3.0.2"
+<<<<<<< HEAD
   injector: ^2.0.0
+=======
+  camera: ^0.9.1
+  video_player: ^2.1.4
+  image_picker: ^0.8.3+3
+  image: ^3.0.2
+>>>>>>> ad8480dcc3310803744c27084d57561394bddab4
 
 dev_dependencies:
   flutter_test:
