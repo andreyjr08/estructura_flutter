@@ -1,9 +1,9 @@
-name: estructura_flutter
+name: listo
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,28 +24,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  sqflite: ^2.0.0+3
-  path: ^1.8.0
-  localstorage: ^4.0.0+1
-  geolocator: ^7.4.0
-  provider: ^5.0.0
-  flutter_secure_storage: ^4.2.0
-  http: ^0.13.3
+  #http: ^0.13.3
   flutter_bloc: ^7.1.0
   bloc: ^7.1.0
   firebase_core: "^ 1.5.0"
   firebase_auth: "^3.0.2"
-<<<<<<< HEAD
   injector: ^2.0.0
-=======
-  camera: ^0.9.1
-  video_player: ^2.1.4
-  image_picker: ^0.8.3+3
-  image: ^3.0.2
->>>>>>> ad8480dcc3310803744c27084d57561394bddab4
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +44,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

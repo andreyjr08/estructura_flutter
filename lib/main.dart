@@ -1,55 +1,13 @@
-import 'package:estructura_flutter/ui/pages/location.dart';
-import 'package:estructura_flutter/ui/pages/login/login_page.dart';
-import 'package:estructura_flutter/device/camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injector/injector.dart';
 
-import 'data/repositories/loginRepository.dart';
-import 'data/service/notifications_service.dart';
-import 'domain/blocs/login/login_bloc.dart';
+import 'app/dependency_injection/register.dart';
+import 'app/my_app.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Register().regist();
   runApp(AppState());
-}
-
-class AppState extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final injector = Injector.appInstance;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (BuildContext context) => injector.get<LoginBloc>())
-      ],
-      child: MyApp(),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  LoginRepository loginRepository = LoginRepository();
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Productos App',
-      initialRoute: 'camera',
-      routes: {
-        'login': (_) => LoginScreen(loginRepository: loginRepository),
-        'location': (_) => CurrentLocation(),
-        'camera': (_) => PhotoPreviewScreen(),
-      },
-      scaffoldMessengerKey: NotificationsService.messengerKey,
-      theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: Colors.grey[300],
-          appBarTheme: AppBarTheme(elevation: 0, color: Colors.indigo),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: Colors.indigo, elevation: 0)),
-    );
-  }
 }
