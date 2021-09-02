@@ -42,6 +42,8 @@ class _LoginFormState extends State<LoginForm> {
         if (state.isSuccess) {
           Navigator.pushNamed(context, Routes.splash);
         }
+
+        if(state.isSubmitting){}
       },
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return Container(
