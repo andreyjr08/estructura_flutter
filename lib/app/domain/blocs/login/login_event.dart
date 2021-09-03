@@ -2,24 +2,18 @@ part of 'login_bloc.dart';
 
 @immutable
 abstract class LoginEvent {
-  List<Object> get props => [];
-}
 
-class ValidateEmailOnChange extends LoginEvent {
-  final String email;
-
-  ValidateEmailOnChange({required this.email});
-
-  @override
-  List<Object> get props => [email];
+  /*@override
+   final InicioSesionDTO inicioSesionDTO =  InicioSesionDTO(contrasena: "",correo: "") ;*/
 }
 
 class LoginWithCredentialsPressed extends LoginEvent {
-  final String email;
-  final String password;
+  final InicioSesionDTO inicioSesionDTO;
 
-  LoginWithCredentialsPressed({required this.email, required this.password});
+  LoginWithCredentialsPressed({required this.inicioSesionDTO});
 
-  @override
-  List<Object> get props => [email, password];
+   /*  @override
+     inicioSesionDTO*/
+
+  
 }

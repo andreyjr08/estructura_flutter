@@ -1,4 +1,4 @@
-import 'package:listo/app/domain/blocs/login/login_bloc.dart';
+/*import 'package:listo/app/domain/blocs/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,11 +116,9 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
-  void _onEmailChange() {
-    _loginBloc.add(ValidateEmailOnChange(email: _emailController.text));
-  }
-
   void _onFormSubmitted() {
+
+
     _loginBloc.add(LoginWithCredentialsPressed(
         email: _emailController.text, password: _passwordController.text));
   }
@@ -131,4 +129,4 @@ class _LoginFormState extends State<LoginForm> {
       backgroundColor: color,
     ));
   }
-}
+}*/

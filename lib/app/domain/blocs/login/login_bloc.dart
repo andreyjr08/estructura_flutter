@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:listo/app/domain/entities/login/inicio_sesion_dto.dart';
 import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
-import 'package:listo/app/ui/util/validator.dart';
 
 //import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
 
@@ -20,24 +20,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is ValidateEmailOnChange) {
-      yield* _validateEmail(event.email);
-    } else if (event is LoginWithCredentialsPressed) {
-      yield* _singIn(email: event.email, password: event.password);
+    if (event is LoginWithCredentialsPressed) {
+      yield* _singIn(inicioSesionDTO: event.inicioSesionDTO);
     }
   }
 
-  Stream<LoginState> _validateEmail(String email) async* {
-    yield state.update(
-        isEmailValid: Validators.isValidEmail(email), isPasswordValid: true);
-  }
-
   Stream<LoginState> _singIn(
-      {required String email, required String password}) async* {
+      {required InicioSesionDTO inicioSesionDTO}) async* {
     yield LoginState.loading();
     try {
-      await _abstractLoginRepository.doLogin(email, password);
-      // ignore: unnecessary_null_comparison
+      await _abstractLoginRepository.doLogin(inicioSesionDTO);
+
       yield LoginState.success();
     } catch (_) {
       yield LoginState.failure();

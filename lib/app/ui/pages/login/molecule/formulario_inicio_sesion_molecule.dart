@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:listo/app/domain/entities/login/inicio_sesion_dto.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:injector/injector.dart';
 
@@ -23,7 +24,7 @@ class FormularioInicioSesion extends StatefulWidget {
 
 class FormularioInicioSesionState extends State<FormularioInicioSesion> {
   final FormGroup form = fb.group(<String, Object>{
-    'correo': ['', Validators.required],
+    'correo': ['', Validators.required, Validators.email],
     'clave': ['', Validators.required, Validators.minLength(6)],
   });
 
@@ -106,11 +107,14 @@ class FormularioInicioSesionState extends State<FormularioInicioSesion> {
 
   void _iniciarSesion() {
     if (form.valid) {
-      _loginBloc.add(LoginWithCredentialsPressed(
-          email: form.control('correo').value,
-          password: form.control('clave').value));
+      InicioSesionDTO _inicioSesionDTO = InicioSesionDTO(
+        correo: form.control('correo').value,
+        contrasena: form.control('clave').value,
+      );
+      _loginBloc
+          .add(LoginWithCredentialsPressed(inicioSesionDTO: _inicioSesionDTO));
     } else {
-      print("Error");
+      print("Formulario no valido");
     }
   }
 }
