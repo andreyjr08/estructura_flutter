@@ -6,7 +6,7 @@ import 'package:listo/app/domain/entities/login/generico_dto.dart';
 import 'package:listo/assets/constantes.dart';
 
 class HttpService {
-  final dynamic body;
+  final Map<String, dynamic>? body;
   final String endPoint;
   final String? token;
 
@@ -14,22 +14,37 @@ class HttpService {
 
 //  late GenericoDTO genericDto;
 
-  /* Future<T> load<T>(HttpService<T> resource) async {
-    final response = await http.get(resource.url!);
-    if (response.statusCode == 200) {
-      return resource.parse!(response);
-    } else {
-      throw Exception(response.statusCode);
-    }
-  }*/
-
-  Future<Object?> post() async {
+  Future<Object?> get() async {
     try {
       final _urlAuth = Constantes.urlBase + endPoint;
       final Map<String, String> headers = obtenerCabeceras(token);
+      final http.Response respuesta = await http.get(
+        Uri.parse(_urlAuth),
+        headers: headers,
+      );
 
-      final http.Response respuesta = await http.post(Uri.parse(_urlAuth),
-          body: json.encode(body), headers: headers);
+      GenericoDTO genericDto =
+          GenericoDTO.fromJson(json.decode(respuesta.body));
+
+      if (genericDto.status == 200) {
+        return genericDto.payload;
+      } else if (genericDto.status == 500) {
+        throw Exception(genericDto.payload);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Object?> post() async {
+    try {
+      //final _urlAuth = Constantes.urlBase + endPoint;
+
+      final _url =
+          Uri.https(Constantes.host, Constantes.urlBase + endPoint, body);
+      final Map<String, String> headers = obtenerCabeceras(token);
+
+      final http.Response respuesta = await http.post(_url, headers: headers);
 
       GenericoDTO genericDto =
           GenericoDTO.fromJson(json.decode(respuesta.body));

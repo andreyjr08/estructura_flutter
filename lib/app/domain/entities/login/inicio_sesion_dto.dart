@@ -15,7 +15,7 @@ class InicioSesionDTO {
         contrasena: json["contrasena"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "correo": correo,
         "contrasena": contrasena,
       };
