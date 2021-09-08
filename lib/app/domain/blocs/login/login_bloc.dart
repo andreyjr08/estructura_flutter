@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:listo/app/domain/entities/login/inicio_sesion_dto.dart';
-import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
+import 'package:estructura/app/domain/entities/login/inicio_sesion_dto.dart';
+import 'package:estructura/app/domain/repository/login/abstract_login_repository.dart';
 
-//import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
+//import 'package:estructura/app/domain/repository/login/abstract_login_repository.dart';
 
 import 'package:meta/meta.dart';
 

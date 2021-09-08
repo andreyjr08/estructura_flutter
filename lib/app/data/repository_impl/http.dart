@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:listo/app/domain/entities/login/generico_dto.dart';
-import 'package:listo/assets/constantes.dart';
+import 'package:estructura/app/domain/entities/login/generico_dto.dart';
+import 'package:estructura/assets/constantes.dart';
 
 class HttpService {
   final Map<String, dynamic>? body;

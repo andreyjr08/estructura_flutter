@@ -1,5 +1,5 @@
-import 'package:listo/app/domain/blocs/login/login_bloc.dart';
-import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
+import 'package:estructura/app/domain/blocs/login/login_bloc.dart';
+import 'package:estructura/app/domain/repository/login/abstract_login_repository.dart';
 import 'package:injector/injector.dart';
 
 class BlocLogin {

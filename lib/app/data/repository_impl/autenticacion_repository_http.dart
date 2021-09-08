@@ -1,8 +1,8 @@
-import 'package:listo/app/data/repository_impl/http.dart';
-import 'package:listo/app/domain/entities/login/generico_dto.dart';
-import 'package:listo/app/domain/entities/login/inicio_sesion_dto.dart';
-import 'package:listo/app/domain/entities/login/sesion_dto.dart';
-import 'package:listo/app/domain/repository/login/abstract_login_repository.dart';
+import 'package:estructura/app/data/repository_impl/http.dart';
+import 'package:estructura/app/domain/entities/login/generico_dto.dart';
+import 'package:estructura/app/domain/entities/login/inicio_sesion_dto.dart';
+import 'package:estructura/app/domain/entities/login/sesion_dto.dart';
+import 'package:estructura/app/domain/repository/login/abstract_login_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AutenticacionRepositoryHttp extends AbstractLoginRepository {

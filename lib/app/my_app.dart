@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injector/injector.dart';
-import 'package:listo/app/ui/routes/app_routes.dart';
-import 'package:listo/app/ui/routes/routes.dart';
+import 'package:estructura/app/ui/routes/app_routes.dart';
+import 'package:estructura/app/ui/routes/routes.dart';
 
 import 'domain/blocs/login/login_bloc.dart';
 

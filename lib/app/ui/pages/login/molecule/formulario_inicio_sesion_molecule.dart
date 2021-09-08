@@ -2,18 +2,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:listo/app/domain/entities/login/inicio_sesion_dto.dart';
+import 'package:estructura/app/domain/entities/login/inicio_sesion_dto.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:injector/injector.dart';
 
-import 'package:listo/app/ui/widgets/atom/campo_contrasenia_atom.dart';
-import 'package:listo/app/ui/widgets/atom/titulo_primario_atom.dart';
-import 'package:listo/app/ui/widgets/atom/alerta_cargando_atom.dart';
-import 'package:listo/app/domain/blocs/login/login_bloc.dart';
-import 'package:listo/app/ui/widgets/atom/boton_atom.dart';
-import 'package:listo/app/ui/widgets/atom/campo_atom.dart';
-import 'package:listo/app/ui/util/alertas_util.dart';
-import 'package:listo/app/ui/routes/routes.dart';
+import 'package:estructura/app/ui/widgets/atom/campo_contrasenia_atom.dart';
+import 'package:estructura/app/ui/widgets/atom/titulo_primario_atom.dart';
+import 'package:estructura/app/ui/widgets/atom/alerta_cargando_atom.dart';
+import 'package:estructura/app/domain/blocs/login/login_bloc.dart';
+import 'package:estructura/app/ui/widgets/atom/boton_atom.dart';
+import 'package:estructura/app/ui/widgets/atom/campo_atom.dart';
+import 'package:estructura/app/ui/util/alertas_util.dart';
+import 'package:estructura/app/ui/routes/routes.dart';
 
 class FormularioInicioSesion extends StatefulWidget {
   FormularioInicioSesion({Key? key}) : super(key: key);

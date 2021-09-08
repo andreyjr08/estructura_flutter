@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listo/app/ui/pages/login/template/inicio_sesion_template.dart';
+import 'package:estructura/app/ui/pages/login/template/inicio_sesion_template.dart';
 
 class InicioSesionPage extends StatelessWidget {
   const InicioSesionPage({Key? key}) : super(key: key);

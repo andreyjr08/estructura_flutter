@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:listo/app/ui/pages/login/molecule/formulario_inicio_sesion_molecule.dart';
-import 'package:listo/app/ui/widgets/atom/fondo_atom.dart';
-import 'package:listo/app/ui/widgets/atom/tarjeta_atom.dart';
+import 'package:estructura/app/ui/pages/login/molecule/formulario_inicio_sesion_molecule.dart';
+import 'package:estructura/app/ui/widgets/atom/fondo_atom.dart';
+import 'package:estructura/app/ui/widgets/atom/tarjeta_atom.dart';
 
 class InicioSesionTemplate extends StatelessWidget {
   const InicioSesionTemplate({Key? key}) : super(key: key);
