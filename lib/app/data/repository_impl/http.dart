@@ -20,7 +20,6 @@ class HttpService {
       final Map<String, String> headers = obtenerCabeceras(token);
       final http.Response respuesta = await http.get(
         Uri.parse(_urlAuth),
-        headers: headers,
       );
 
       GenericoDTO genericDto =
@@ -38,13 +37,15 @@ class HttpService {
 
   Future<Object?> post() async {
     try {
-      //final _urlAuth = Constantes.urlBase + endPoint;
+      final _urlAuth = Constantes.host+ Constantes.urlBase + endPoint;
 
-      final _url =
-          Uri.https(Constantes.host, Constantes.urlBase + endPoint, body);
       final Map<String, String> headers = obtenerCabeceras(token);
 
-      final http.Response respuesta = await http.post(_url, headers: headers);
+      final http.Response respuesta = await http.post(
+        Uri.parse("http://10.102.1.72:9598/api/listoclientes/autenticacion/iniciar-sesion"),
+        headers: headers,
+        body: json.encode(body),
+      );
 
       GenericoDTO genericDto =
           GenericoDTO.fromJson(json.decode(respuesta.body));

@@ -9,5 +9,5 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Register().regist();
-  runApp(AppState());
+  runApp(MyApp());
 }

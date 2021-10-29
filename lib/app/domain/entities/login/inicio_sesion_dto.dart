@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class InicioSesionDTO {
   InicioSesionDTO({
     required this.correo,
@@ -20,9 +18,9 @@ class InicioSesionDTO {
         "contrasena": contrasena,
       };
 
-
-
-
+  bool isEqual(InicioSesionDTO? model) {
+    return correo == model?.correo;
+  }
 
   /*   SesionDTO sesionDTO = SesionDTO.fromJson( */
   /*          json.decode(jsonEncode(repuesta!.payload).toString())); */

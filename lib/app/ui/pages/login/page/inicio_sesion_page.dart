@@ -7,7 +7,7 @@ class InicioSesionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InicioSesionTemplate(),
+      child: HomePage(),
     );
   }
 }

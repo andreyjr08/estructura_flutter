@@ -1,8 +1,12 @@
+import 'package:estructura/app/ui/widgets/atom/campo_money_format_atom.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:estructura/app/domain/entities/login/inicio_sesion_dto.dart';
+import 'package:intl/intl.dart';
+import 'package:reactive_dropdown_search/reactive_dropdown_search.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:injector/injector.dart';
 
@@ -23,17 +27,26 @@ class FormularioInicioSesion extends StatefulWidget {
 }
 
 class FormularioInicioSesionState extends State<FormularioInicioSesion> {
-  final FormGroup form = fb.group(<String, Object>{
-    'correo': ['', Validators.required, Validators.email],
-    'clave': ['', Validators.required, Validators.minLength(6)],
-  });
+  List<InicioSesionDTO> list = [
+    InicioSesionDTO(contrasena: '2cas', correo: 'carlos'),
+    InicioSesionDTO(contrasena: '53453', correo: 'andrey'),
+    InicioSesionDTO(contrasena: '65465', correo: 'andres'),
+    InicioSesionDTO(contrasena: '76867', correo: 'juan'),
+    InicioSesionDTO(contrasena: '76867', correo: 'oscar'),
+    InicioSesionDTO(contrasena: '76867', correo: 'ruben'),
+  ];
 
-  late LoginBloc _loginBloc;
+  final FormGroup form = fb.group(<String, Object>{
+    'correo': ['', Validators.required],
+    'clave': ['', Validators.required, Validators.minLength(6)],
+    'menu': FormControl<InicioSesionDTO>(
+        validators: [Validators.required],
+        value: InicioSesionDTO(contrasena: '2cas', correo: 'cascas')),
+  });
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
   }
 
   @override
@@ -66,6 +79,8 @@ class FormularioInicioSesionState extends State<FormularioInicioSesion> {
                 form: () => form,
                 builder: (context, form, child) {
                   return Column(children: [
+                    SizedBox(height: 15),
+                    //CampoMoneyFormat(nombreFormulario: 'money',),
                     TituloPrimarioWidget(
                       texto: 'Iniciar sesión',
                     ),
@@ -94,6 +109,23 @@ class FormularioInicioSesionState extends State<FormularioInicioSesion> {
                       },
                     ),
                     SizedBox(height: 10),
+
+                    ReactiveDropdownSearch<InicioSesionDTO>(
+                      label: "Name",
+                      formControlName: 'menu',
+                      decoration: InputDecoration(
+                        helperText: '',
+                        contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                        border: OutlineInputBorder(),
+                      ),
+                      showSearchBox: true,
+                      items: list,
+                      itemAsString: (InicioSesionDTO item) =>
+                          item.correo.toString(),
+                      dropdownBuilder: _customDropDownExample,
+                      popupItemBuilder: _customPopupItemBuilderExample2,
+                    ),
+
                     BotonWidget(
                       texto: 'Ingresar',
                       color: Colors.blueAccent,
@@ -106,7 +138,13 @@ class FormularioInicioSesionState extends State<FormularioInicioSesion> {
   }
 
   void _iniciarSesion() {
-    if (form.valid) {
+    print(
+      (form.control('menu').value).correo,
+    );
+    print(
+      (form.control('menu').value).contrasena,
+    );
+    /*if (form.valid) {
       InicioSesionDTO _inicioSesionDTO = InicioSesionDTO(
         correo: form.control('correo').value,
         contrasena: form.control('clave').value,
@@ -114,7 +152,50 @@ class FormularioInicioSesionState extends State<FormularioInicioSesion> {
       _loginBloc
           .add(LoginWithCredentialsPressed(inicioSesionDTO: _inicioSesionDTO));
     } else {
-      print("Formulario no valido");
+      print("Error en el formulario");
+    }*/
+  }
+
+  Future<List<InicioSesionDTO>> getData(String filter) async {
+    print(">>>>>>>>>>>>>>>>>>>>" + filter);
+    return list
+        .where((element) => element.correo.toLowerCase().contains(filter))
+        .toList();
+  }
+
+  Widget _customDropDownExample(
+      BuildContext context, InicioSesionDTO? item, String itemDesignation) {
+    if (item == null) {
+      return Container();
     }
+
+    return Container(
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        title: Text(item.correo),
+        subtitle: Text(
+          item.contrasena.toString(),
+        ),
+      ),
+    );
+  }
+
+  Widget _customPopupItemBuilderExample2(
+      BuildContext context, InicioSesionDTO item, bool isSelected) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      decoration: !isSelected
+          ? null
+          : BoxDecoration(
+              border: Border.all(color: Theme.of(context).primaryColor),
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+            ),
+      child: ListTile(
+        selected: isSelected,
+        title: Text(item.correo),
+        subtitle: Text(item.contrasena.toString()),
+      ),
+    );
   }
 }

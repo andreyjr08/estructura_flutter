@@ -1,14 +1,20 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class CampoWidget extends StatelessWidget {
-  const CampoWidget({
+class CampoMoneyFormat extends StatelessWidget {
+  static const _locale = 'en';
+  String _formatNumber(String s) =>
+      NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  String get _currency =>
+      NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
+
+  const CampoMoneyFormat({
     Key? key,
     this.sugerenciaCampo,
     this.etiquetaCampo,
-    required this.tipoTeclado,
     this.icono,
     this.nombreFormulario,
     this.mensajesError,
@@ -18,7 +24,6 @@ class CampoWidget extends StatelessWidget {
   final Map<String, String> Function(FormControl<String>)? mensajesError;
   final String? sugerenciaCampo;
   final String? etiquetaCampo;
-  final TextInputType tipoTeclado;
   final FaIcon? icono;
 
   @override
@@ -27,8 +32,9 @@ class CampoWidget extends StatelessWidget {
       child: ReactiveTextField<String>(
           key: key,
           formControlName: nombreFormulario,
-          keyboardType: tipoTeclado,
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
+            prefixText: _currency,
             hintText: sugerenciaCampo,
             labelText: etiquetaCampo,
             icon: icono,
@@ -36,6 +42,13 @@ class CampoWidget extends StatelessWidget {
           validationMessages: mensajesError),
     );
   }
+
+  void cambioCorreo(AbstractControl<dynamic> control) {
+    control.valueChanges.listen((value) {
+      print(value);
+      value = _formatNumber(value.replaceAll(',', ''));
+      control.value = value;
+    });
+  }
 }
-
-
+*/
